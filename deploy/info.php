@@ -4,7 +4,7 @@
 // General information
 ///////////////////////////////////////////////////////////////////////////// 
 $app['basename'] = 'photo_organizer';
-$app['version'] = '1.0.0';
+$app['version'] = '1.0.1';
 $app['release'] = '1';
 $app['vendor'] = 'ClearFoundation';
 $app['packager'] = 'ClearFoundation';
@@ -31,7 +31,7 @@ $app['subcategory'] = lang('base_subcategory_file');
 
 $app['core_requires'] = array(
     'app-flexshare-core',
-    'exiftool'
+    'perl-Image-ExifTool'
 );
 
 $app['core_file_manifest'] = array(
