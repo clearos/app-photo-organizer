@@ -632,18 +632,25 @@ class Photo_Organizer extends Engine
     /**
      * Set run option.
      *
+     * @string $source_override source override
+     *
      * @return void
      * @throws Engine_Exception
      */
 
-    function run()
+    function run($source_override = NULL)
     {
         clearos_profile(__METHOD__, __LINE__);
             
         $shell = new Shell();
         $sources = $this->get_sources();
-        if (empty($sources))
+        if ($source_override == NULL && empty($sources))
             throw new Engine_Exception(lang('photo_organizer_no_sources_defined'));
+
+        if ($source_override != NULL) {
+            unset($sources);
+            $sources[] = $source_override;
+        }
 
         try {
             

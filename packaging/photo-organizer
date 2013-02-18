@@ -71,16 +71,49 @@ use \Exception as Exception;
 $short_options  = '';
 
 // Common
+$short_options .= 'p::'; // Path
+$short_options .= 'r::'; // Recurse
+$short_options .= 'm::'; // Move
+$short_options .= 'h';   // Help
+
 $helpopts  = '
   Common Options
   --------------
+  -p=override sources by prividing path (eg. /tmp)
+  -r=recurse directory if override source is set
+  -m=move files if override source is set
+  -h: help
 ';
+
+// Handle command line options
+//----------------------------
 
 $options = getopt($short_options);
 
+$path = isset($options['p']) ? $options['p'] : NULL;
+$recurse = isset($options['r']) ? TRUE : FALSE;
+$move = isset($options['m']) ? TRUE : FALSE;
+$help = isset($options['h']) ? TRUE : FALSE;
+
+if ($help) {
+    echo "usage: " . $argv[0] . " [options]\n";
+    echo $helpopts;
+    exit(0);
+}
+
 $photo_organizer = new Photo_Organizer();
+
 try {
-    $photo_organizer->run();
+    $source = NULL;
+    if ($path != NULL) {
+        $source = array(
+            'id' => 0,
+            'path' => $path,
+            'move' => $move,
+            'recurse' => $recurse
+        );
+    }
+    $photo_organizer->run($source);
     exit(0);
 } catch (Exception $e) {
     echo clearos_exception_message($e) . "\n";
