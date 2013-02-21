@@ -58,6 +58,7 @@ clearos_load_language('photo_organizer');
 use \clearos\apps\base\Configuration_File as Configuration_File;
 use \clearos\apps\base\Engine as Engine;
 use \clearos\apps\base\File as File;
+use \clearos\apps\base\Folder as Folder;
 use \clearos\apps\base\Shell as Shell;
 use \clearos\apps\flexshare\Flexshare as Flexshare;
 use \clearos\apps\mail_notification\Mail_Notification as Mail_Notification;
@@ -67,6 +68,7 @@ use \clearos\apps\tasks\Cron as Cron;
 clearos_load_library('base/Configuration_File');
 clearos_load_library('base/Engine');
 clearos_load_library('base/File');
+clearos_load_library('base/Folder');
 clearos_load_library('base/Shell');
 clearos_load_library('flexshare/Flexshare');
 clearos_load_library('mail_notification/Mail_Notification');
@@ -677,7 +679,7 @@ class Photo_Organizer extends Engine
                 }
             }
             foreach ($sources as $source) {
-                $params = '';
+                $params = '-q ';
                 // Move or copy
                 if (!$source['move'])
                     $params .= '-o dummy/ ';
@@ -708,6 +710,12 @@ class Photo_Organizer extends Engine
                 $log[] = "";
             }
             
+            // Chown new folders/files
+            $userinfo = posix_getpwuid(fileowner($destination_folder));
+            $groupinfo = posix_getgrgid(filegroup($destination_folder));
+            $folder = new Folder($destination_folder, TRUE);
+            $folder->chown($userinfo['name'], $groupinfo['name'], TRUE);
+
             // Write log to file and compare with previous to see if email alert required
             $file = new File(self::FOLDER_PHOTOS_ORGANIZER . '/log.txt');
             if (!$file->exists()) {
