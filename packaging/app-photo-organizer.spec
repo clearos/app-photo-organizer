@@ -1,7 +1,7 @@
 
 Name: app-photo-organizer
 Epoch: 1
-Version: 1.0.3
+Version: 1.0.4
 Release: 1%{dist}
 Summary: Photo Organizer
 License: GPLv3
@@ -20,7 +20,7 @@ License: LGPLv3
 Group: ClearOS/Libraries
 Requires: app-base-core
 Requires: app-flexshare-core
-Requires: perl-Image-ExifTool
+Requires: perl-Image-ExifTool >= 9.17.1
 
 %description core
 The Photo organizer app automates the process of organizing digital photos that have been copied to various folders - either because of different devices (smartphone, digital camera upload etc.) or different persons.  The result is an easily navigatable folder with filenames that can be identified by the device that took them.
