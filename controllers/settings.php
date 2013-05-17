@@ -132,6 +132,6 @@ class Settings extends ClearOS_Controller
         $data['file_format'] = ($this->photo_organizer->get_file_format() != NULL ? $this->photo_organizer->get_file_format() : 0);
         $data['email_notification'] = $this->photo_organizer->get_email_notification();
 
-        $this->page->view_form('settings', $data, lang('photo_organizer_photo_organizer'));
+        $this->page->view_form('settings', $data, lang('photo_organizer_app_name'));
     }
 }

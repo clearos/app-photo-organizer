@@ -70,7 +70,7 @@ class Sources extends ClearOS_Controller
         // Load views
         //-----------
 
-        $this->page->view_form('sources', $data, lang('photo_organizer_photo_organizer'));
+        $this->page->view_form('sources', $data, lang('photo_organizer_app_name'));
     }
 
     /**
@@ -126,7 +126,7 @@ class Sources extends ClearOS_Controller
             $data['move'] = $sources[$index]['move'];
             $data['id'] = $index;
         }
-        $this->page->view_form('add_edit_source', $data, lang('photo_organizer_photo_organizer'));
+        $this->page->view_form('add_edit_source', $data, lang('photo_organizer_app_name'));
     }
 
     /**
