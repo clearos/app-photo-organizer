@@ -3,9 +3,9 @@
 /**
  * Photo organizer settings controller.
  *
- * @category   Apps
- * @package    Photo_Organizer
- * @subpackage Controllers
+ * @category   apps
+ * @package    photo-organizer
+ * @subpackage controllers
  * @author     ClearFoundation <developer@clearfoundation.com>
  * @copyright  2011-2013 ClearFoundation
  * @license    http://www.gnu.org/copyleft/gpl.html GNU General Public License version 3 or later
@@ -40,9 +40,9 @@
 /**
  * Settings controller.
  *
- * @category   Apps
- * @package    Photo_Organizer
- * @subpackage Controllers
+ * @category   apps
+ * @package    photo-organizer
+ * @subpackage controllers
  * @author     ClearFoundation <developer@clearfoundation.com>
  * @copyright  2011-2013 ClearFoundation
  * @license    http://www.gnu.org/copyleft/gpl.html GNU General Public License version 3 or later

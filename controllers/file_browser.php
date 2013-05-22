@@ -3,9 +3,9 @@
 /**
  * Photo Organizer file source controller.
  *
- * @category   Apps
- * @package    Photo_Organizer
- * @subpackage Controllers
+ * @category   apps
+ * @package    photo-organizer
+ * @subpackage controllers
  * @author     ClearCenter <developer@clearcenter.com>
  * @copyright  2011 ClearCenter
  * @license    http://www.clearcenter.com/app_license ClearCenter license
@@ -27,9 +27,9 @@ use \clearos\apps\photo_organizer\Photo_Organizer as Photo_Organizer;
 /**
  * Photo Organizer file source controller.
  *
- * @category   Apps
- * @package    Photo_Organizer
- * @subpackage Controllers
+ * @category   apps
+ * @package    photo-organizer
+ * @subpackage controllers
  * @author     ClearCenter <developer@clearcenter.com>
  * @copyright  2011 ClearCenter
  * @license    http://www.clearcenter.com/app_license ClearCenter license

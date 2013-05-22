@@ -3,9 +3,9 @@
 /**
  * Photo Orginizer file browser view.
  *
- * @category   Apps
- * @package    Photo_Organizer
- * @subpackage Views
+ * @category   apps
+ * @package    photo-organizer
+ * @subpackage views
  * @author     ClearCenter <developer@clearcenter.com>
  * @copyright  2011 ClearCenter
  * @license    http://www.clearcenter.com/app_license ClearCenter license
