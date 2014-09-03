@@ -1,7 +1,7 @@
 
 Name: app-photo-organizer
 Epoch: 1
-Version: 1.0.6
+Version: 1.6.5
 Release: 1%{dist}
 Summary: Photo Organizer
 License: GPLv3
@@ -15,7 +15,7 @@ Requires: app-base
 The Photo organizer app automates the process of organizing digital photos that have been copied to various folders - either because of different devices (smartphone, digital camera upload etc.) or different persons.  The result is an easily navigatable folder with filenames that can be identified by the device that took them.
 
 %package core
-Summary: Photo Organizer - APIs and install
+Summary: Photo Organizer - Core
 License: LGPLv3
 Group: ClearOS/Libraries
 Requires: app-base-core
@@ -75,7 +75,6 @@ exit 0
 %files core
 %defattr(-,root,root)
 %exclude /usr/clearos/apps/photo_organizer/packaging
-%exclude /usr/clearos/apps/photo_organizer/tests
 %dir /usr/clearos/apps/photo_organizer
 %dir %attr(755,webconfig,webconfig) /var/clearos/photo_organizer
 /usr/clearos/apps/photo_organizer/deploy
