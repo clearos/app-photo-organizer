@@ -4,7 +4,7 @@
 // General information
 ///////////////////////////////////////////////////////////////////////////// 
 $app['basename'] = 'photo_organizer';
-$app['version'] = '1.6.5';
+$app['version'] = '2.0.0';
 $app['release'] = '1';
 $app['vendor'] = 'ClearFoundation';
 $app['packager'] = 'ClearFoundation';
@@ -56,5 +56,5 @@ $app['core_directory_manifest'] = array(
 );
 
 $app['delete_dependency'] = array(
-    'app-photo_organizer-core'
+    'app-photo-organizer-core'
 );

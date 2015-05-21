@@ -26,7 +26,7 @@ $this->lang->load('photo_organizer');
 
 $anchors = array(
     form_submit_custom('select_source', lang('base_select')),
-    anchor_cancel('/app/photo_organizer/sources/add_edit')
+    anchor_cancel('/app/photo_organizer/sources/add_edit' . (isset($source_id) ? "/$source_id" : ""))
 );
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -44,13 +44,23 @@ $headers = array(
 
 $table_title = lang('photo_organizer_source_dir');
 
-echo form_open('photo_organizer/sources/add_edit');
+$options = array(
+    'id' => 'file_browser',
+    'no_action' => TRUE,
+    'empty_table_message' => lang('photo_organizer_no_files_or_folders'),
+    'sort' => array(0, 1),
+    'sort-default-col' => 1,
+    'sort-default-dir' => 'desc',
+    'col-widths' => array('5%', '95%')
+);
+
+echo form_open('photo_organizer/sources/add_edit' . (isset($source_id) ? "/$source_id" : ""));
 echo summary_table(
     $table_title,
     $anchors,
     $headers,
     NULL,
-    array('id' => 'file_browser', 'no_action' => TRUE, 'sort' => array(0, 1), 'sort-default-col' => 1, 'sort-default-dir' => 'desc', 'col-widths' => array('5%', '95%'))
+    $options
 );
 echo "<input type='hidden' name='source_path' id='source_path' value='$source_path' />";
 echo form_close();

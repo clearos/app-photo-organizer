@@ -1,7 +1,7 @@
 
 Name: app-photo-organizer
 Epoch: 1
-Version: 1.6.5
+Version: 2.0.0
 Release: 1%{dist}
 Summary: Photo Organizer
 License: GPLv3

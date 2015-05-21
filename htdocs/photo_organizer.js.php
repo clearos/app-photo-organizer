@@ -7,7 +7,7 @@
  * @package    photo-organizer
  * @subpackage javascript
  * @author     ClearFoundation <developer@clearfoundation.com>
- * @copyright  2011 ClearFoundation
+ * @copyright  2011-2015 ClearFoundation
  * @license    http://www.gnu.org/copyleft/gpl.html GNU General Public License version 3 or later
  * @link       http://www.clearfoundation.com/docs/developer/apps/photo_organizer/
  */
@@ -41,21 +41,30 @@ clearos_load_language('photo_organizer');
 
 header('Content-Type: application/x-javascript');
 
-echo "
+?>
+
+var lang_select_path = '<?php echo lang('photo_organizer_click_to_select_path'); ?>';
+var lang_warning = '<?php echo lang('base_warning'); ?>';
+var lang_location = '<?php echo lang('photo_organizer_location'); ?>';
 
 $(document).ready(function() {
-    $('#email_notification').css('width', '220px');
-    if ($('#source').val() == '')
-        $('#source_text').html(source_button());
-    if ($(location).attr('href').match('.*\/file_browser\/index\/init$') != null)
-        get_file_browser($.base64.encode('/'));
+    if ($('#source').val() == '') {
+        var options = Object();
+        options.buttons = false;
+        $('#source_text').html(clearos_anchor('/app/photo_organizer/file_browser/index', lang_select_path, options));
+    } else if ($('#source').val() != undefined) {
+        var options = Object();
+        options.buttons = false;
+        var source_dir = $('#source_text').html();
+        $('#source_text').html(clearos_anchor('/app/photo_organizer/file_browser/index/' + $('#source_id').val(), source_dir, options));
+    }
+    if ($(location).attr('href').match('.*\/file_browser\/index.*$') != null) {
+        if ($('#source_path').val() != undefined && $('#source_path').val() != '')
+            get_file_browser($.base64.encode($('#source_path').val()));
+        else
+            get_file_browser($.base64.encode('/'));
+    }
 });
-
-function source_button() {
-    return '<div class=\'theme-button-set ui-button-set\' style=\'margin-left: 5px;\'>' +
-        '<a href=\'/app/photo_organizer/file_browser/index/init\' class=\'theme-button-set-first theme-button-set-last theme-anchor theme-anchor-edit theme-anchor-important\'>" . lang('base_configure') . "</a>' +
-        '</div>';
-}
 
 function get_file_browser(path) {
 
@@ -68,14 +77,17 @@ function get_file_browser(path) {
         url: '/app/photo_organizer/dir_listing',
         data: 'ci_csrf_token=' + $.cookie('ci_csrf_token') + '&path=' + encodeURIComponent(path) + '&include_files=0',
         success: function(data) {
+            if (data.code != 0 || $('#file_browser').length == 0)
+                return;
+            var table_file_browser = get_table_file_browser();
             table_file_browser.fnClearTable();
-            $('#file_browser_wrapper div:first').html('<span>" . lang('photo_organizer_location') . ": ' + $.base64.decode(path) + '</span>');
-            var icon = '<div class=\'theme-file-browser-folder\'></div>';
+            $('#file_browser_wrapper div:first').html('<span class="col-xs-12">' + lang_location + ': ' + $.base64.decode(path) + '</span>');
+            var icon = '<div class="theme-file-browser-folder"></div>';
             for (var index = 0 ; index < data.contents.length; index++) {
                 add_row = table_file_browser.fnAddData([
                     icon,
                     data.contents[index].name +
-                    '<input type=\'hidden\' id=\'val-myrow-' + (index +1) + '\' value=\'' + data.contents[index].base64 + '\' />'
+                    '<input type="hidden" id="val-myrow-' + (index +1) + '" value="' + data.contents[index].base64 + '" />'
                 ]);
                 var my_row = $('#file_browser').dataTable().fnSettings().aoData[add_row[0]].nTr;
                 my_row.setAttribute('id', 'myrow-' + (index + 1));
@@ -84,7 +96,7 @@ function get_file_browser(path) {
             $('#file_browser tr').find('th:eq(0)').css('width', '50');
             $('#file_browser tr').find('th:eq(0)').attr('align', 'center');
             $('#file_browser tr').find('td:eq(0)').attr('align', 'center');
-            $('#file_browser thead tr').find('th:eq(0)').html('<div class=\'theme-file-browser-parent\' id=\'parent\'></div>');
+            $('#file_browser thead tr').find('th:eq(0)').html('<div class="theme-file-browser-parent" id="parent"></div>');
             // Make sure it's not empty
             if (!$('#file_browser tr').find('td:eq(0)').hasClass('dataTables_empty')) {
                 $('#file_browser tbody tr td').mouseover(function() {
@@ -104,6 +116,7 @@ function get_file_browser(path) {
                 });
             }
             $('#file_browser tbody tr td').click(function(e) {
+                e.preventDefault();
                 if (e.target['tagName'] == 'TD' || e.target['tagName'] == 'DIV') {
                     get_file_browser($('#val-' + this.parentNode.id).val());
                     $('#source_path').val($.base64.decode($('#val-' + this.parentNode.id).val()));
@@ -111,8 +124,10 @@ function get_file_browser(path) {
                     return;
                 }
             });
-            $('#parent').click(function() {
+            $('#parent').click(function(e) {
+                e.preventDefault();
                 get_file_browser(data.previous);
+                $('#source_path').val($.base64.decode(data.previous));
                 // Move window up after selection
                 $('html, body').animate({scrollTop:0}, 'slow');
                 return;
@@ -121,7 +136,7 @@ function get_file_browser(path) {
         error: function(xhr, text, err) {
             // Don't display any errors if ajax request was aborted due to page redirect/reload
             if (xhr['abort'] == undefined)
-                clearos_dialog_box('error', '" . lang('base_warning') . "', xhr.responseText.toString());
+                clearos_dialog_box('error', lang_warning, xhr.responseText.toString());
         }
     });
 }
@@ -147,11 +162,9 @@ function select_folder(path, selected) {
         error: function(xhr, text, err) {
             // Don't display any errors if ajax request was aborted due to page redirect/reload
             if (xhr['abort'] == undefined)
-                clearos_dialog_box('error', '" . lang('base_warning') . "', xhr.responseText.toString());
+                clearos_dialog_box('error', lang_warning, xhr.responseText.toString());
         }
     });
 }
-
-";
 
 // vim: ts=4 syntax=javascript

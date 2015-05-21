@@ -449,6 +449,7 @@ class Photo_Organizer extends Engine
     /**
      * Add or edit existing source.
      *
+     * @param int     $source_id  source ID
      * @param string  $my_path    path
      * @param boolean $my_move    move files
      * @param boolean $my_recurse recurse through folder
@@ -456,7 +457,7 @@ class Photo_Organizer extends Engine
      * @return array
      */
 
-    function add_edit_source($my_path, $my_move = TRUE, $my_recurse = TRUE)
+    function add_edit_source($source_id, $my_path, $my_move = 1, $my_recurse = 1)
     {
         clearos_profile(__METHOD__, __LINE__);
 
@@ -465,31 +466,16 @@ class Photo_Organizer extends Engine
         if (!$this->is_loaded)
             $this->_load_config();
 
-        if ($my_move === 'on' || $my_move == 1)
-            $my_move = 1;
-        else
-            $my_move = 0;
-
-        if ($my_recurse === 'on' || $my_recurse == 1)
-            $my_recurse = 1;
-        else
-            $my_recurse = 0;
-
         $sources = preg_split('/;/', $this->config['sources'], 0, PREG_SPLIT_NO_EMPTY);
 
-        $duplicate = -1;
-        $index = 0;
         foreach ($sources as $source) {
             list($path, $move, $recurse) = explode('|', $source);
             $list[] = $path . '|' . $move . '|' . $recurse;
-            if ($path == $my_path)
-                $duplicate = $index;
-            $index++;
         }
-        if ($duplicate < 0)
+        if ($source_id < 0)
             $list[] = $my_path . '|' . $my_move . '|' . $my_recurse;
         else
-            $list[$duplicate] = $my_path . '|' . $my_move . '|' . $my_recurse;
+            $list[$source_id] = $my_path . '|' . $my_move . '|' . $my_recurse;
 
         $this->_set_parameter('sources', implode(';', $list));
     }

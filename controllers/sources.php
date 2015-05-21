@@ -104,6 +104,7 @@ class Sources extends ClearOS_Controller
             if ($form_ok) {
                 try {
                     $this->photo_organizer->add_edit_source(
+                        $index,
                         $this->input->post('source'),
                         $this->input->post('move'),
                         $this->input->post('recurse')
@@ -121,10 +122,11 @@ class Sources extends ClearOS_Controller
         if ($index >= 0) {
             $sources = $this->photo_organizer->get_sources();
             $data['mode'] = 'edit';
-            $data['source'] = $sources[$index]['path'];
+            if (!isset($data['source']))
+                $data['source'] = $sources[$index]['path'];
             $data['recurse'] = $sources[$index]['recurse'];
             $data['move'] = $sources[$index]['move'];
-            $data['id'] = $index;
+            $data['source_id'] = $index;
         }
         $this->page->view_form('add_edit_source', $data, lang('photo_organizer_app_name'));
     }

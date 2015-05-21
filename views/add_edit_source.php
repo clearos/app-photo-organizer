@@ -43,7 +43,7 @@ if($invalid_source)
 // Form open
 ///////////////////////////////////////////////////////////////////////////////
 
-echo form_open('photo_organizer/sources/add_edit');
+echo form_open('photo_organizer/sources/add_edit' . (isset($source_id) ? "/$source_id" : ""));
 echo form_header(lang('base_settings'));
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -67,7 +67,7 @@ if ($mode == 'edit') {
 echo field_input('source', $source, lang('photo_organizer_source'), TRUE);
 echo field_checkbox('move', $move, lang('photo_organizer_delete_original'), $read_only);
 echo field_checkbox('recurse', $recurse, lang('photo_organizer_recursive'), $read_only);
-echo field_input('id', $index, '', TRUE, array('hide_field' => TRUE));
+echo field_input('source_id', $source_id, '', TRUE, array('hide_field' => TRUE));
 echo field_button_set($buttons);
 
 ///////////////////////////////////////////////////////////////////////////////

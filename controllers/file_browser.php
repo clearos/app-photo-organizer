@@ -41,17 +41,29 @@ class File_Browser extends ClearOS_Controller
     /**
      * Photo Organizer file browser controller.
      *
+     * @param int $source_id source ID
+     *
      * @return view
      */
 
-    function index($action)
+    function index($source_id = NULL)
     {
         // Load libraries
         //---------------
 
+        $this->load->library('photo_organizer/Photo_Organizer');
         $this->lang->load('photo_organizer');
 
-        $data = array('source_path' => '/');
+        if ($source_id == NULL) {
+            $path = "/";
+        } else {
+            $sources = $this->photo_organizer->get_sources();
+            $path = $sources[$source_id]['path'];
+        }
+
+        $data = array('source_path' => $path);
+        if ($source_id != NULL)
+            $data['source_id'] = $source_id;
 
         $this->page->view_form('photo_organizer/file_browser', $data, lang('photo_organizer_app_name'));
     }

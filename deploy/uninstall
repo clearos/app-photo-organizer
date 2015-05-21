@@ -1,0 +1,6 @@
+#!/bin/sh
+
+if [ -e /etc/cron.d/app-photo-organizer ]; then
+    logger -p local6.notice -t installer "app-photo-organizer-core - disabling photo organizer cron event"
+    rm -rf /etc/cron.d/app-photo-organizer
+fi

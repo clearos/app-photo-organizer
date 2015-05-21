@@ -56,8 +56,8 @@ foreach ($sources as $info) {
         ),
         'details' => array(
             $info['path'],
-            ($info['move'] ? '<div style=\'margin-left: 20;\' class=\'theme-field-checkbox-enabled\'></div>' : ''),
-            ($info['recurse'] ? '<div style=\'margin-left: 20;\' class=\'theme-field-checkbox-enabled\'></div>' : '')
+            ($info['move'] ? lang('base_yes') : lang('base_no')),
+            ($info['recurse'] ? lang('base_yes') : lang('base_no'))
         )
     );
 
