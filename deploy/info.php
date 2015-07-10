@@ -4,7 +4,7 @@
 // General information
 ///////////////////////////////////////////////////////////////////////////// 
 $app['basename'] = 'photo_organizer';
-$app['version'] = '2.0.0';
+$app['version'] = '2.1.6';
 $app['release'] = '1';
 $app['vendor'] = 'ClearFoundation';
 $app['packager'] = 'ClearFoundation';
