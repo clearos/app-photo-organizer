@@ -7,7 +7,7 @@
  * @package    photo-organizer
  * @subpackage libraries
  * @author     ClearFoundation <developer@clearfoundation.com>
- * @copyright  2003-2011 ClearFoundation
+ * @copyright  2003-2016 ClearFoundation
  * @license    http://www.gnu.org/copyleft/lgpl.html GNU Lesser General Public License version 3 or later
  * @link       http://www.clearfoundation.com/docs/developer/apps/photo_organizer/
  */
@@ -98,7 +98,7 @@ clearos_load_library('flexshare/Flexshare_Not_Found_Exception');
  * @package    photo-organizer
  * @subpackage libraries
  * @author     ClearFoundation <developer@clearfoundation.com>
- * @copyright  2003-2011 ClearFoundation
+ * @copyright  2003-2016 ClearFoundation
  * @license    http://www.gnu.org/copyleft/lgpl.html GNU Lesser General Public License version 3 or later
  * @link       http://www.clearfoundation.com/docs/developer/apps/photo_organizer/
  */
@@ -154,9 +154,9 @@ class Photo_Organizer extends Engine
         $flexshare = new Flexshare();
         $shares = $flexshare->get_share_summary(FALSE);
         foreach ($shares as $share) {
-            if ($share['Dir'] == self::FOLDER_FLEXSHARE_PHOTOS)
+            if ($share['ShareDir'] == self::FOLDER_FLEXSHARE_PHOTOS)
                 continue;
-            $options[$share['Dir']] = lang('flexshare_app_name') . ' - ' . $share['Name'];
+            $options[$share['ShareDir']] = lang('flexshare_app_name') . ' - ' . $share['Name'];
         }
         
         // Read config file
@@ -763,7 +763,7 @@ class Photo_Organizer extends Engine
     {
         clearos_profile(__METHOD__, __LINE__);
 
-        if (FALSE)
+        if ($destination_folder == NULL || !isset($destination_folder))
             return lang('photo_organizer_destination_folder_is_invalid');
     }
 
