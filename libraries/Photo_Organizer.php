@@ -659,8 +659,7 @@ class Photo_Organizer extends Engine
                         self::FLEXSHARE_PHOTOS,
                         lang('photo_organizer_app_name'),
                         'allusers',
-                        self::FOLDER_FLEXSHARE_PHOTOS,
-                        TRUE
+                        self::FOLDER_FLEXSHARE_PHOTOS
                     );
                 }
             }
