@@ -665,24 +665,28 @@ class Photo_Organizer extends Engine
             }
             foreach ($sources as $source) {
                 $params = '-q ';
-                // Move or copy
-                if (!$source['move'])
-                    $params .= '-o dummy/ ';
                     
-                // Move or copy
+                // Recurse folders
                 if ($source['recurse'])
                     $params .= '-r ';
                 if ($file_format != NULL)
                     $params .= "'-filename<" . $file_format . "' ";
 
+                // Move or copy
+                if (!$source['move'])
+                    $params .= ' -o . ';
+
+                $params .= "\"-directory<datetimeoriginal\" ";
+                
                 // Add destination folder
                 if ($folder_format != NULL)
-                    $params .= "-d $destination_folder/$folder_format \"-directory<datetimeoriginal\" ";
+                    $params .= "-d \"$destination_folder/$folder_format\" ";
                 else
-                    $params .= " \"-directory=$destination_folder/\" ";
+                    $params .= "-d \"$destination_folder/\" ";
                 $params .= "\"" . $source['path'] . "\"";
 
                 //echo self::COMMAND_EXIFTOOL . ' ' . $params;
+
                 $options = array('validate_exit_code' => FALSE);
                 $shell->execute(self::COMMAND_EXIFTOOL, $params, FALSE, $options);
                 $rows = $shell->get_output();
